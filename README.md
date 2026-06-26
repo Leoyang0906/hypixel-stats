@@ -1,4 +1,4 @@
-BedWars Stats Query Tool
+Hypixel BedWars Stats Query Tool
 
 A lightweight, keyboard-driven GUI application for querying Hypixel BedWars statistics of Minecraft players, featuring real-time input capture, automatic UUID resolution, and intuitive stat calculation based on Hypixel's experience formula. Designed for quick access to core BedWars metrics without navigating the Hypixel website or in-game menus.
 Disclaimer
