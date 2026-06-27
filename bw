@@ -1,0 +1,39 @@
+import requests
+import json
+
+NOTCH_UUID = "069a79f444e94726a5befca90e38aaf5"
+
+def getuuid(name):
+    try:
+        url = f'https://api.mojang.com/users/profiles/minecraft/{name}'
+        resp = requests.get(url, timeout=5)
+        resp.raise_for_status()
+        data = json.loads(resp.text)
+        return data['id']
+    except (requests.RequestException, KeyError, json.JSONDecodeError):
+        return NOTCH_UUID
+
+def getBWStar(bwexp):
+    bwPerPrestigeExp = 489000
+    bwPerPrestigeLevel = 100
+    curPrestige = int(bwexp / bwPerPrestigeExp)
+    bwexp = bwexp % bwPerPrestigeExp
+
+    if curPrestige > 5:
+        prestigeOver = curPrestige % 5
+        bwexp += prestigeOver * bwPerPrestigeExp
+        curPrestige -= prestigeOver
+
+    if bwexp < 500:
+        base = 0
+    elif bwexp < 1500:
+        base = 1
+    elif bwexp < 3500:
+        base = 2
+    elif bwexp < 5500:
+        base = 3
+    elif bwexp < 9000:
+        base = 4
+    else:
+        base = int((bwexp - 9000) / 5000 + 4)
+    return base + curPrestige * bwPerPrestigeLevel
